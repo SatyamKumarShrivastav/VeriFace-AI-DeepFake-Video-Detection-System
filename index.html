@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DeepFake Detector — S. K. Shrivastav</title>
+<meta name="description" content="AI-powered DeepFake video detection system by S. K. Shrivastav"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+
+<!-- ── Animated Background ── -->
+<div class="bg-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- ── Welcome Banner ── -->
+<header class="welcome-banner">
+  <div class="welcome-inner">
+    <div class="welcome-badge">🔐 AI Forensics Lab</div>
+    <h1 class="welcome-title">
+      Welcome! <span class="gradient-text">Mr. S. K. Shrivastav</span>
+    </h1>
+    <p class="welcome-sub">DeepFake Video Detection System &mdash; Advanced Forensic Analysis</p>
+    <div class="welcome-stats">
+      <div class="stat"><span class="stat-val">8</span><span class="stat-lbl">Detection Signals</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-val">AI</span><span class="stat-lbl">Powered Analysis</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-val">∞</span><span class="stat-lbl">Frame Inspection</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ── Main App ── -->
+<main class="container">
+
+  <!-- Upload Section -->
+  <section class="card upload-card" id="upload-section">
+    <div class="card-header">
+      <span class="card-icon">📂</span>
+      <div>
+        <h2 class="card-title">Upload Video for Analysis</h2>
+        <p class="card-sub">Supported: MP4, AVI, MOV, MKV, WEBM &mdash; Max 500 MB</p>
+      </div>
+    </div>
+
+    <div class="dropzone" id="dropzone">
+      <div class="drop-inner" id="drop-inner">
+        <div class="drop-icon">🎬</div>
+        <p class="drop-title">Drag &amp; Drop your video here</p>
+        <p class="drop-sub">or click to browse files</p>
+        <input type="file" id="file-input" accept="video/*" hidden/>
+        <button class="btn btn-primary" id="browse-btn">Browse File</button>
+      </div>
+      <div class="preview-inner hidden" id="preview-inner">
+        <video id="video-preview" controls muted></video>
+        <div class="preview-meta" id="preview-meta"></div>
+        <div class="preview-actions">
+          <button class="btn btn-primary" id="analyze-btn">🔍 Analyze Video</button>
+          <button class="btn btn-ghost" id="clear-btn">✕ Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analysis Progress -->
+  <section class="card progress-card hidden" id="progress-section">
+    <div class="card-header">
+      <span class="card-icon">⚙️</span>
+      <div>
+        <h2 class="card-title">Analyzing Video…</h2>
+        <p class="card-sub" id="progress-status">Initializing forensic engine…</p>
+      </div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="analysis-steps" id="analysis-steps">
+      <div class="step" id="step-upload">📤 Uploading video</div>
+      <div class="step" id="step-frames">🎞️ Extracting frames</div>
+      <div class="step" id="step-freq">📡 Frequency domain analysis</div>
+      <div class="step" id="step-temporal">⏱️ Temporal consistency check</div>
+      <div class="step" id="step-face">🎭 Face region forensics</div>
+      <div class="step" id="step-noise">📷 Noise residual analysis</div>
+      <div class="step" id="step-report">📋 Generating report</div>
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section class="hidden" id="results-section">
+
+    <!-- Verdict Card -->
+    <div class="card verdict-card" id="verdict-card">
+      <div class="verdict-badge" id="verdict-badge">
+        <div class="verdict-icon" id="verdict-icon">🔍</div>
+        <div class="verdict-text">
+          <div class="verdict-label">VERDICT</div>
+          <div class="verdict-value" id="verdict-value">—</div>
+        </div>
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric-box">
+          <div class="metric-label">Fake Probability</div>
+          <div class="gauge-wrap">
+            <svg class="gauge" viewBox="0 0 120 70">
+              <path class="gauge-bg" d="M10,65 A55,55 0 0,1 110,65"/>
+              <path class="gauge-fill" id="gauge-fake" d="M10,65 A55,55 0 0,1 110,65" stroke-dasharray="0 173"/>
+            </svg>
+            <div class="gauge-val" id="gauge-fake-val">0%</div>
+          </div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Real Probability</div>
+          <div class="gauge-wrap">
+            <svg class="gauge" viewBox="0 0 120 70">
+              <path class="gauge-bg" d="M10,65 A55,55 0 0,1 110,65"/>
+              <path class="gauge-fill gauge-real" id="gauge-real" d="M10,65 A55,55 0 0,1 110,65" stroke-dasharray="0 173"/>
+            </svg>
+            <div class="gauge-val" id="gauge-real-val">0%</div>
+          </div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Detection Accuracy</div>
+          <div class="big-num" id="accuracy-val">—</div>
+          <div class="metric-sub">Confidence Score</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Frames Analyzed</div>
+          <div class="big-num" id="frames-val">—</div>
+          <div class="metric-sub">Analysis Depth</div>
+        </div>
+      </div>
+
+      <div class="summary-box" id="summary-box">
+        <div class="summary-icon">💬</div>
+        <p id="summary-text">—</p>
+      </div>
+    </div>
+
+    <!-- Top Reasons -->
+    <div class="card" id="reasons-card">
+      <div class="card-header">
+        <span class="card-icon">📋</span>
+        <div>
+          <h2 class="card-title">Why This Verdict?</h2>
+          <p class="card-sub">Key forensic signals that influenced the result</p>
+        </div>
+      </div>
+      <ul class="reasons-list" id="reasons-list"></ul>
+    </div>
+
+    <!-- Signal Breakdown -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🔬</span>
+        <div>
+          <h2 class="card-title">Forensic Signal Breakdown</h2>
+          <p class="card-sub">Detailed per-signal analysis scores</p>
+        </div>
+      </div>
+      <div class="signals-grid" id="signals-grid"></div>
+    </div>
+
+    <!-- Video Info -->
+    <div class="card info-card">
+      <div class="card-header">
+        <span class="card-icon">🎬</span>
+        <div><h2 class="card-title">Video Information</h2></div>
+      </div>
+      <div class="info-grid" id="info-grid"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions-row">
+      <button class="btn btn-primary" id="new-analysis-btn">🔄 Analyze Another Video</button>
+      <button class="btn btn-ghost" id="download-btn">⬇️ Download Report</button>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>DeepFake Detection System &copy; 2025 &mdash; Developed for <strong>S. K. Shrivastav</strong> &mdash; All rights reserved</p>
+</footer>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
