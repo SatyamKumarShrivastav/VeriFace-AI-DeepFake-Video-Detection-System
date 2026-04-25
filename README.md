@@ -396,15 +396,14 @@ Possible upgrades include:
 B.Tech — Artificial Intelligence and Data Science - 3rd year/6th sem
 
 Focused on building real-world AI systems with practical impact, premium UI/UX, and intelligent automation.
-
----
+It is created fot submiting in Knowledge Demonstration examination of 6th semester in Excel Engineering College (Autonomous), Namakkal in Anna University Chennai, Tamil Nadu.
 
 # 📬 Connect With Me
 
-* 💼 LinkedIn: [Satyam Kumar Shrivastav](https://www.linkedin.com/in/s-k-shrivastav/))
+* 💼 LinkedIn: [Satyam Kumar Shrivastav](https://www.linkedin.com/in/s-k-shrivastav/)
 * 📧 Email: [Satyam Kumar Shrivastav](mailto:23ad101@excelcolleges.com)
-* 🐦 X (Twitter): [Satyam Kumar Shrivastav](mailto:satyamkumarshrivastav.ai@gmail.com)
+* 🐦 X (Twitter): [Satyam Kumar Shrivastav](https://x.com/S_K_Shrivastav)
 
----
+
 
 # ⭐ If you like this project, give it a star!
